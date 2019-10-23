@@ -6,4 +6,4 @@ Sessions are stored on server side. Cookies are on the client side.
 
 Sessions are closed when the user closes his browser. For cookies, you can set time that when it will be expired.
 
-Sessions are safe that cookies. Because, since stored on client's computer, there are ways to modify or manipulate cookies.
+Sessions are safe than cookies. Because, since stored on client's computer, there are ways to modify or manipulate cookies.

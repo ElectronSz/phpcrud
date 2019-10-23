@@ -1,14 +1,62 @@
 <?php
+session_start();
+//check if session['user'] exist
+if(isset($_SESSION['user'])){
+
+    //redirect user to landing page
+    header("location:index.php");
+
+    //exit proccesses
+    die();
+ }
+ 
    include("config.php");
 
    if($_SERVER["REQUEST_METHOD"] == "POST") {
+
       // age,username and password sent from form 
-      
       $myusername = mysqli_real_escape_string($link,$_POST['username']);
       $mypassword = mysqli_real_escape_string($link,$_POST['password']);
-      $myage = mysqli_real_escape_string($link,$_POST['age']);  
+      $age = mysqli_real_escape_string($link,$_POST['age']);  
       
+      //sql string
+      $sql = "INSERT INTO `users` (`username`, `password`, `age`) VALUES ('".$myusername."','".$mypassword."', '".$age."')";
+    
+      $query = mysqli_query($link, $sql);
       
+    if ($query) {
+           
+    //login user
+      $sql = "SELECT `username`, `password` FROM `users` WHERE `username` = '$myusername' AND `password` = '$mypassword'";
+      
+      //create query to database ['result']
+      $result = mysqli_query($link,$sql);
+
+      //fetch the user related to the info provided & decode to objects of an array
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      
+      //count the rows returned
+      $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+      if($count == 1) {
+
+        //set the current user to a session using [$_POST['username']]
+        //$_SESSION['user'] = $mypassword;
+
+         //set the current user to a session using one form db['username']]
+         $_SESSION['user'] = $row['username'];
+
+         //redirect user to landing page
+         header("location: index.php");
+      }else {
+         $error = "Your Login Name or Password is invalid";
+      }
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($link);
+        }
+
+        mysqli_close($link);
    }
 ?>
 
@@ -37,7 +85,7 @@
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group ">
                             <label>Username</label>
-                            <input type="email" name="name" class="form-control">
+                            <input type="email" name="username" class="form-control">
                             <span class="help-block"></span>
                         </div>
                         <div class="form-group">
@@ -51,7 +99,7 @@
                             <span class="help-block"></span>
                         </div>
                         
-                        <input type="submit" class="btn btn-primary" value="Sign In">
+                        <input type="submit" class="btn btn-primary" value="Sign Up">
                         <span> Already have account? please <a href="login.php" class="">Sign In</a> here.</span>
                     </form>
                 </div>
