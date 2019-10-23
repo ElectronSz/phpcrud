@@ -1,11 +1,18 @@
+<?php
+session_start();
+if(!isset($_SESSION['user'])){
+    header("location:login.php");
+    die();
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Employee System</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <script src="./bootstrap/jquery.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.js"></script>
     <style type="text/css">
         .wrapper{
             width: 650px;
