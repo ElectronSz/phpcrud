@@ -1,9 +1,17 @@
 <?php
+
+// invoke/start new or existing session
 session_start();
+
 if(!isset($_SESSION['user'])){
+
+    //redirect user to `login page`
     header("location:login.php");
+
+    //kill the current page
     die();
  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +32,9 @@ if(!isset($_SESSION['user'])){
         table tr td:last-child a{
             margin-right: 15px;
         }
+        .nav{
+            margin-top: 30px;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -33,6 +44,7 @@ if(!isset($_SESSION['user'])){
 </head>
 <body>
     <div class="wrapper">
+    
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -89,6 +101,11 @@ if(!isset($_SESSION['user'])){
                 </div>
             </div>        
         </div>
+        <ul class="nav nav-pills">
+        <li role="presentation" class="pull-left">Logged In As: <span><a href=""><?php echo $_SESSION['user']; ?></a></span></li>
+        <li role="presentation" class="pull-right"><a href="logout.php">Logout</a></li>
+        </ul>
     </div>
+    
 </body>
 </html>
