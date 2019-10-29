@@ -1,4 +1,5 @@
 <?php
+
 // Check existence of id parameter before processing further
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     // Include config file
@@ -22,10 +23,6 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 /* Fetch result row as an associative array. Since the result set contains only one row, we don't need to use while loop */
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 
-                // Retrieve individual field value
-                $name = $row["name"];
-                $address = $row["address"];
-                $salary = $row["salary"];
             } else{
                 // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
@@ -48,20 +45,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     exit();
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>View Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        .wrapper{
-            width: 500px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-<body>
+<?php include('header.php'); ?>
+
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -69,6 +54,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <div class="page-header">
                         <h1>View Record</h1>
                     </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
                     <div class="form-group">
                         <label>Name</label>
                         <p class="form-control-static"><?php echo $row["name"]; ?></p>
@@ -82,6 +70,13 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p class="form-control-static"><?php echo $row["salary"]; ?></p>
                     </div>
                     <p><a href="index.php" class="btn btn-primary">Back</a></p>
+                    </div>
+
+                    <div class="col-md-6">
+                    <img src="<?php echo $row['file_name'] ?>" alt="" height="250px" width="250px">
+                    </div>
+                    </div>
+                   
                 </div>
             </div>        
         </div>

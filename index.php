@@ -3,6 +3,16 @@
 // invoke/start new or existing session
 session_start();
 
+//cookie
+// if(!isset($_COOKIE['user'])){
+// //redirect user to `login page`
+// header("location:login.php");
+
+// //kill the current page
+// die();
+// }
+
+//sessions
 if(!isset($_SESSION['user'])){
 
     //redirect user to `login page`
@@ -13,36 +23,8 @@ if(!isset($_SESSION['user'])){
  }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee System</title>
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-    <script src="./bootstrap/jquery.min.js"></script>
-    <script src="./bootstrap/js/bootstrap.js"></script>
-    <style type="text/css">
-        .wrapper{
-            width: 650px;
-            margin: 0 auto;
-        }
-        .page-header h2{
-            margin-top: 0;
-        }
-        table tr td:last-child a{
-            margin-right: 15px;
-        }
-        .nav{
-            margin-top: 30px;
-        }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
-</head>
-<body>
+
+<?php include('header.php') ?>
     <div class="wrapper">
     
         <div class="container-fluid">
@@ -106,6 +88,4 @@ if(!isset($_SESSION['user'])){
         <li role="presentation" class="pull-right"><a href="logout.php">Logout</a></li>
         </ul>
     </div>
-    
-</body>
-</html>
+<?php include('footer.php') ?>
